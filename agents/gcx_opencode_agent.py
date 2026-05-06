@@ -31,6 +31,9 @@ class GcxOpenCodeAgent(OpenCode):
         parts.append(instruction)
         return "\n".join(parts)
 
+    def get_version_command(self) -> str | None:
+        return ". ~/.nvm/nvm.sh; echo opencode $(opencode --version); echo $(gcx --version)"
+
     def _convert_events_to_trajectory(self, events: list[dict[str, Any]]) -> Trajectory | None:
         """Inject a synthetic step_finish when the agent was killed mid-step.
 
