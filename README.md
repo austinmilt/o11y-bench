@@ -257,7 +257,7 @@ If you're on macOS, a native `go build` produces a binary that won't run inside
 the container. Build the binary for linux first:
 
 ```bash
-cd ~/workspace/gcx && GOOS=linux GOARCH=arm64 go build -o bin/gcx-linux ./cmd/gcx
+cd ~/workspace/gcx && GOOS=linux GOARCH=arm64 mise run build
 LOCAL_GCX=~/path/to/gcx/bin/gcx-linux mise run setup:preflight
 ```
 

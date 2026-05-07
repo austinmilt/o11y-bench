@@ -119,7 +119,9 @@ if [ -n "${LOCAL_GCX:-}" ]; then
 fi
 
 echo "Building shared Harbor main image: o11y-bench-main:latest"
-docker build -t o11y-bench-main:latest -f "$ROOT/environment/Dockerfile" "$ROOT/environment" >/dev/null
+
+# dont cache to make sure the version of gcx is always up to date
+docker build --no-cache -t o11y-bench-main:latest -f "$ROOT/environment/Dockerfile" "$ROOT/environment" >/dev/null
 echo "Building shared Harbor sidecar image: o11y-bench-o11y-stack:latest"
 docker build -t o11y-bench-o11y-stack:latest -f "$ROOT/docker/Dockerfile" "$ROOT/docker" >/dev/null
 
