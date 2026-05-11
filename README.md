@@ -236,32 +236,19 @@ This agent can only run models available in OpenCode.
 To test gcx changes before they are on main, you can use a locally-built binary
 instead of the published release.
 
-Set `LOCAL_GCX` to the path of your binary when running preflight:
+Set `LOCAL_GCX` to the path of a gcx executable **for Linux** when running preflight or bench runs.
 
-```bash
-LOCAL_GCX=~/path/to/gcx/bin/gcx mise run setup:preflight
-```
 
-Or copy it into the build context manually:
-
-```bash
-cp ~/path/to/gcx/bin/gcx environment/gcx
-mise run setup:preflight
-```
-
-Either way, the Docker image will use your local binary instead of downloading
+When set, the Docker image will use your local binary instead of downloading
 from GitHub. The `environment/gcx` file is gitignored and cleaned up after build.
 
-The binary must be a **Linux** executable matching the Docker image architecture.
-If you're on macOS, a native `go build` produces a binary that won't run inside
-the container. Build the binary for linux first:
+Use `GOARCH=amd64` if your Docker is running x86_64 images.
 
 ```bash
 cd ~/workspace/gcx && GOOS=linux GOARCH=arm64 mise run build
-LOCAL_GCX=~/path/to/gcx/bin/gcx-linux mise run setup:preflight
+LOCAL_GCX=/path/to/gcx/bin/gcx-linux mise run bench:job -- --model openai/gpt-5.4-nano
 ```
 
-Use `GOARCH=amd64` if your Docker is running x86_64 images.
 
 ## Running Your Own Models
 
