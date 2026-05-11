@@ -116,6 +116,10 @@ if [ -n "${LOCAL_GCX:-}" ]; then
   cp "$LOCAL_GCX" "$ROOT/environment/gcx"
   chmod +x "$ROOT/environment/gcx"
   trap 'rm -f "$ROOT/environment/gcx"' EXIT INT TERM
+else
+  # make sure we remove leftover artifacts in the case where LOCAL_GCX is unset,
+  # to avoid accidentally using a stale local build.
+  rm -f "$ROOT/environment/gcx"
 fi
 
 echo "Building shared Harbor main image: o11y-bench-main:latest"

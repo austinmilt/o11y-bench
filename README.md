@@ -238,7 +238,6 @@ instead of the published release.
 
 Set `LOCAL_GCX` to the path of a gcx executable **for Linux** when running preflight or bench runs.
 
-
 When set, the Docker image will use your local binary instead of downloading
 from GitHub. The `environment/gcx` file is gitignored and cleaned up after build.
 
