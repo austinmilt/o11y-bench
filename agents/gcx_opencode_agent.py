@@ -23,6 +23,8 @@ class GcxOpenCodeAgent(OpenCode):
         self.mcp_servers = []
 
     def render_instruction(self, instruction: str) -> str:
+        """Inject the same system prompt as used in the o11y bench agent
+        """
         scenario_time = os.environ.get("O11Y_SCENARIO_TIME_ISO", "").strip()
         parts = [SYSTEM_PROMPT, ""]
         if scenario_time:
