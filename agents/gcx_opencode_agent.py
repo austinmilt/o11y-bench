@@ -8,10 +8,13 @@ only reach Grafana through gcx.
 """
 
 import os
+from pathlib import Path
 from typing import Any
 
 from harbor.agents.installed.opencode import OpenCode
 from harbor.models.trajectories import Trajectory
+
+SYSTEM_PROMPT = Path(__file__).parent.joinpath("system_prompt.txt").read_text().strip()
 
 
 class GcxOpenCodeAgent(OpenCode):
@@ -21,17 +24,11 @@ class GcxOpenCodeAgent(OpenCode):
 
     def render_instruction(self, instruction: str) -> str:
         scenario_time = os.environ.get("O11Y_SCENARIO_TIME_ISO", "").strip()
+        parts = [SYSTEM_PROMPT, ""]
         if scenario_time:
-            return (
-                f"<context>\n"
-                f"Current time: {scenario_time}\n"
-                f"</context>\n\n"
-                f"Treat the Current time above as now. "
-                f"For time-bounded Prometheus, Loki, and Tempo queries, "
-                f"derive explicit time bounds from that time instead of relative now.\n\n"
-                f"{instruction}"
-            )
-        return instruction
+            parts.append(f"<context>\nCurrent time: {scenario_time}\n</context>\n")
+        parts.append(instruction)
+        return "\n".join(parts)
 
     def _convert_events_to_trajectory(self, events: list[dict[str, Any]]) -> Trajectory | None:
         """Inject a synthetic step_finish when the agent was killed mid-step.
