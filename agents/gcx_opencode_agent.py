@@ -7,6 +7,7 @@ benchmarking gcx-only interaction. Clearing mcp_servers ensures the agent can
 only reach Grafana through gcx.
 """
 
+import os
 from typing import Any
 
 from harbor.agents.installed.opencode import OpenCode
@@ -17,6 +18,20 @@ class GcxOpenCodeAgent(OpenCode):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.mcp_servers = []
+
+    def render_instruction(self, instruction: str) -> str:
+        scenario_time = os.environ.get("O11Y_SCENARIO_TIME_ISO", "").strip()
+        if scenario_time:
+            return (
+                f"<context>\n"
+                f"Current time: {scenario_time}\n"
+                f"</context>\n\n"
+                f"Treat the Current time above as now. "
+                f"For time-bounded Prometheus, Loki, and Tempo queries, "
+                f"derive explicit time bounds from that time instead of relative now.\n\n"
+                f"{instruction}"
+            )
+        return instruction
 
     def _convert_events_to_trajectory(self, events: list[dict[str, Any]]) -> Trajectory | None:
         """Inject a synthetic step_finish when the agent was killed mid-step.
