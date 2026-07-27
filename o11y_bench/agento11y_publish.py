@@ -105,7 +105,7 @@ class Agento11yLivePublisher:
         if self._experiment is not None:
             return str(self._experiment.url)
         base = os.getenv("AGENTO11Y_GRAFANA_URL", "").rstrip("/")
-        return f"{base}/a/grafana-sigil-app/experiments/runs/{self.experiment_id}"
+        return f"{base}/a/grafana-agento11y-app/experiments/runs/{self.experiment_id}"
 
     def start(self) -> None:
         self._connect()
@@ -520,7 +520,7 @@ def _import_agento11y() -> tuple[Any, Any]:
         from agento11y import experiments
     except ImportError as exc:
         raise RuntimeError(
-            "Agent Observability publishing requires agento11y>=0.11.0. "
+            "Agent Observability publishing requires agento11y>=0.12.0. "
             "Run `mise run agento11y:setup` to install the published SDK."
         ) from exc
     return agento11y, experiments

@@ -83,18 +83,18 @@ def test_build_test_suite_rejects_duplicate_ids(monkeypatch, tmp_path):
 def test_suite_url_uses_configured_grafana_app_control_url(monkeypatch):
     monkeypatch.setenv(
         "AGENTO11Y_CONTROL_ENDPOINT",
-        "https://dev.grafana-dev.net/a/grafana-sigil-app",
+        "https://dev.grafana-dev.net/a/grafana-agento11y-app",
     )
 
     assert agento11y_suite.test_suite_url("o11y-bench/jack") == (
-        "https://dev.grafana-dev.net/a/grafana-sigil-app/experiments/test-suites/o11y-bench%2Fjack"
+        "https://dev.grafana-dev.net/a/grafana-agento11y-app/experiments/test-suites/o11y-bench%2Fjack"
     )
 
 
 def test_suite_url_uses_grafana_url_for_direct_control_endpoint(monkeypatch):
-    monkeypatch.setenv("AGENTO11Y_CONTROL_ENDPOINT", "http://sigil:8080/api/v1/eval")
+    monkeypatch.setenv("AGENTO11Y_CONTROL_ENDPOINT", "http://agento11y:8080/api/v1/eval")
     monkeypatch.setenv("AGENTO11Y_GRAFANA_URL", "http://localhost:3000")
 
     assert agento11y_suite.test_suite_url("o11y-bench") == (
-        "http://localhost:3000/a/grafana-sigil-app/experiments/test-suites/o11y-bench"
+        "http://localhost:3000/a/grafana-agento11y-app/experiments/test-suites/o11y-bench"
     )

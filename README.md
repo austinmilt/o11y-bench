@@ -357,7 +357,7 @@ The integration uses two credential planes:
 | `AGENTO11Y_ENDPOINT` | Experiment, trial, generation, and score ingest URL | Grafana Cloud **Agent Observability > Configuration > Connection** |
 | `AGENTO11Y_AUTH_TENANT_ID` | Grafana Cloud stack/tenant ID used for ingest basic auth | Agent Observability connection details |
 | `AGENTO11Y_AUTH_TOKEN` | Access policy token with `sigil:write` for ingest | Agent Observability connection details |
-| `AGENTO11Y_CONTROL_ENDPOINT` | Grafana app URL used to publish and retrieve test suites | `https://<stack>.grafana.net/a/grafana-sigil-app` |
+| `AGENTO11Y_CONTROL_ENDPOINT` | Grafana app URL used to publish and retrieve test suites | `https://<stack>.grafana.net/a/grafana-agento11y-app` |
 | `AGENTO11Y_SERVICE_ACCOUNT_TOKEN` | Grafana service-account token used by test-suite APIs | Grafana **Administration > Users and access > Service accounts** |
 | `AGENTO11Y_INGEST_ACTOR` | Tenant or owner label attached to published experiments | Choose a stable identifier for the publishing team or user |
 

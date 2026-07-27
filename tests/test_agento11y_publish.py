@@ -273,7 +273,7 @@ def test_publisher_fallback_url_uses_current_experiment_route(monkeypatch, tmp_p
     )
 
     assert publisher.url == (
-        "https://example.grafana.net/a/grafana-sigil-app/experiments/runs/run-1"
+        "https://example.grafana.net/a/grafana-agento11y-app/experiments/runs/run-1"
     )
 
 

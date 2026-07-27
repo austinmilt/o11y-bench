@@ -108,7 +108,7 @@ def test_suite_url(suite_id: str) -> str:
     parsed = urlsplit(source)
     if not parsed.scheme or not parsed.netloc:
         return ""
-    app_path = "/a/grafana-sigil-app"
+    app_path = "/a/grafana-agento11y-app"
     if app_path in parsed.path:
         base_path = parsed.path.split(app_path, 1)[0] + app_path
     else:
@@ -124,7 +124,7 @@ def _import_agento11y() -> Any:
         from agento11y import experiments
     except ImportError as exc:
         raise RuntimeError(
-            "Agent Observability publishing requires agento11y>=0.11.0. "
+            "Agent Observability publishing requires agento11y>=0.12.0. "
             "Run `mise run agento11y:setup` to install the published SDK."
         ) from exc
     return experiments

@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-agento11y = ["agento11y>=0.11.0"]
+agento11y = ["agento11y>=0.12.0"]
 
 [dependency-groups]
 dev = [
